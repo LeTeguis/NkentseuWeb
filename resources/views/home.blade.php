@@ -16,6 +16,10 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <p>
+                    <!-- Lien pour créer un nouvel article : "posts.create" -->
+                    <a href="{{ route('posts.index') }}" title="voir les blogs" >voir les blogs</a>
+                </p>
             </div>
         </div>
     </div>
