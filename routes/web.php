@@ -16,3 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('home', function () {
+    return view('home');
+})->middleware('auth');
+
+// test
+Route::get('test', function () {
+    return 'Vue de test';
+})->middleware(['verified']);
+
+Route::get('test', function () {
+    return 'Vue de test';
+})->middleware(['auth', 'password.confirm']);
