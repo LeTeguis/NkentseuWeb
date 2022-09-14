@@ -33,13 +33,13 @@ Route::get('test', function () {
 
 // Users
 Route::group(['prefix'=> 'users', 'namespace'=>'\App\Http\Controllers'], function() {
-    Route::get('index', ['uses' => 'UserController@index']);
-    Route::get('create', ['uses' => 'UserController@create']);
-    Route::post('store', ['uses' => 'UserController@store']);
-    Route::get('show', ['uses' => 'UserController@show']);
-    Route::get('edit', ['uses' => 'UserController@edit']);
-    Route::post('update', ['uses' => 'UserController@update']);
-    Route::get('delete', ['uses' => 'UserController@delete']);
+    Route::get('index', ['uses' => 'UserController@index'])->name('users.index');
+    Route::get('create', ['uses' => 'UserController@create'])->name('users.create');
+    Route::post('store', ['uses' => 'UserController@store'])->name('users.store');
+    Route::get('show', ['uses' => 'UserController@show'])->name('users.show');
+    Route::get('edit', ['uses' => 'UserController@edit'])->name('users.edit');
+    Route::post('update', ['uses' => 'UserController@update'])->name('users.update');
+    Route::get('delete', ['uses' => 'UserController@delete'])->name('users_delete');
 });
 
 // Posts

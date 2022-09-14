@@ -8,7 +8,7 @@
 	@if (isset($post))
 
 	<!-- Le formulaire est géré par la route "posts.update" -->
-	<form method="POST" action="{{ route('posts.update', $post) }}" enctype="multipart/form-data" >
+	<form method="POST" action="{{ route('posts_update', $post) }}" enctype="multipart/form-data" >
 
 		<!-- <input type="hidden" name="_method" value="PUT"> -->
 		@method('PUT')
@@ -16,7 +16,7 @@
 	@else
 
 	<!-- Le formulaire est géré par la route "posts.store" -->
-	<form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" >
+	<form method="POST" action="{{ route('posts_store') }}" enctype="multipart/form-data" >
 
 	@endif
 
