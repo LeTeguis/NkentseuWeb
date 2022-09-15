@@ -17,8 +17,8 @@
                     {{ __('You are logged in!') }}
                 </div>
                 <p>
-                    <!-- Lien pour créer un nouvel article : "posts.create" -->
-                    <a href="{{ route('posts.index') }}" title="voir les blogs" >voir les blogs</a>
+                    <!-- Lien pour lister les utilisateurs -->
+                    <a href="{{ route('users_index') }}" title="voir les utilisateurs" >voir les utilisateurs</a>
                 </p>
             </div>
         </div>

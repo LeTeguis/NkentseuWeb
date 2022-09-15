@@ -62,7 +62,7 @@ class UserController extends Controller
         ]);
 
         // 3. On retourne vers tous les users: route("users.index")
-        return redirect(route("users.index"));
+        return redirect(route("users_index"));
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view("users.show", compact("users"));
+        return view("users_show", compact("users"));
     }
 
     /**
@@ -114,7 +114,7 @@ class UserController extends Controller
         ]);
 
         // 3. On affiche la liste des users modifié : route("users.show")
-        return redirect(route("users.show", $user));
+        return redirect(route("users_show", $user));
     }
 
     /**
@@ -128,8 +128,10 @@ class UserController extends Controller
 
         // On supprime les informations du $user de la table "users"
         $user->delete();
+        //$user_find = User::findOrFail(user.id);
+        //$user_find->delete();
 
         // Redirection route "users.index"
-        return redirect(route('users.index'));
+        return redirect(route('users_index'));
     }
 }

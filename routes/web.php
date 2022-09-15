@@ -33,13 +33,14 @@ Route::get('test', function () {
 
 // Users
 Route::group(['prefix'=> 'users', 'namespace'=>'\App\Http\Controllers'], function() {
-    Route::get('index', ['uses' => 'UserController@index'])->name('users.index');
-    Route::get('create', ['uses' => 'UserController@create'])->name('users.create');
-    Route::post('store', ['uses' => 'UserController@store'])->name('users.store');
-    Route::get('show', ['uses' => 'UserController@show'])->name('users.show');
-    Route::get('edit', ['uses' => 'UserController@edit'])->name('users.edit');
-    Route::post('update', ['uses' => 'UserController@update'])->name('users.update');
-    Route::get('delete', ['uses' => 'UserController@delete'])->name('users_delete');
+    Route::get('index', ['uses' => 'UserController@index'])->name('users_index');
+    Route::get('create', ['uses' => 'UserController@create'])->name('users_create');
+    Route::post('store', ['uses' => 'UserController@store'])->name('users_store');
+    Route::get('show', ['uses' => 'UserController@show'])->name('users_show');
+    Route::get('edit/{user}', ['uses' => 'UserController@edit'])->name('users_edit');
+    Route::post('update', ['uses' => 'UserController@update'])->name('users_update');
+    //Route::get('delete', ['uses' => 'UserController@destroy'])->name('users_delete');
+    Route::delete('delete/{user}', 'UserController@destroy')->name('users_delete');
 });
 
 // Posts
@@ -50,5 +51,8 @@ Route::group(['prefix'=> 'posts', 'namespace'=>'\App\Http\Controllers'], functio
     Route::get('show', ['uses' => 'PostController@show'])->name('posts_show');
     Route::get('edit', ['uses' => 'PostController@edit'])->name('posts_edit');
     Route::post('update', ['uses' => 'PostController@update'])->name('posts_update');
-    Route::get('delete', ['uses' => 'PostController@delete'])->name('posts_destroy');
+    Route::get('delete', ['uses' => 'PostController@destroy'])->name('posts_destroy');
 });
+
+// cars
+Route::resource('cars', 'CarController');

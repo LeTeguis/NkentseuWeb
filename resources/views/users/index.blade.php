@@ -13,11 +13,11 @@
             <th scope="col">Email</th>
             <th scope="col">delete</th>
             <th scope="col">update</th>
-            <th scope="col">change password</th>
+            <th scope="col">new user</th>
           </tr>
         </thead>
         <tbody>
-            <!-- On parcourt la collection de Post -->
+            <!-- On parcourt la collection d'Utilisateur -->
             @php $i = 1 @endphp
 			@foreach($users as $user)
 			<tr>
@@ -25,17 +25,21 @@
 				<td> {{ $user->name }} </td>
                 <td> {{ $user->email }} </td>
                 <td>
-                    <!-- Formulaire pour supprimer un Post : "posts.destroy" -->
-					<form method="POST" action="{{ route('users_delete', $user) }}" >
-						<!-- CSRF token -->
-						@csrf
+                    <!-- Formulaire pour supprimer un Utilisateur : "users.destroy" -->
+					<form method="POST" action="{{ route('users_delete', ['user' => $user]) }}" >
 						<!-- <input type="hidden" name="_method" value="DELETE"> -->
 						@method("DELETE")
+                        <!-- CSRF token -->
+					    @csrf
 						<input type="submit" value="x Supprimer" >
 					</form>
                 </td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>
+                    <a href="{{ route('users_edit', ['user' => $user]) }}" title="Modifier" >Modifier</a>
+                </td>
+                <td>
+					<a href="{{ route('users_create') }}" title="Nouveau" >Nouveau</a>
+                </td>
 			</tr>
             @php $i = $i + 1 @endphp
 			@endforeach
