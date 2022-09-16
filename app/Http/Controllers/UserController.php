@@ -3,11 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Laravel\Fortify\Rules\Password;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    /**
+     * Get the validation rules used to validate passwords.
+     *
+     * @return array
+     */
+    protected function passwordRules()
+    {
+        return ['string', new Password, 'confirmed'];
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,9 +56,15 @@ class UserController extends Controller
 
         // 1. validator
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            "email" => 'required',
-            "password" => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
+            'password' => $this->passwordRules(),
         ]);
 
         if ($validator->fails()) {
@@ -59,7 +77,7 @@ class UserController extends Controller
         User::create([
             "name" => $request->name,
             "email" => $request->email,
-            "password" => $request->password,
+            "password" => Hash::make($request->password)
         ]);
 
         // 3. On retourne vers tous les users: route("users.index")
@@ -100,19 +118,34 @@ class UserController extends Controller
         // 1. La validation
         // Les règles de validation pour "nom", "email", "password"
         $rules = [
-            'name' => 'required',
-            "email" => 'required',
-            "password" => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+            ]
         ];
 
-        $this->validate($request, $rules);
-
         // 2. On met à jour les informations du User
-        $user->update([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => $request->password
-        ]);
+        if(!empty($request->password))
+        {
+            $rules[] = ['password' => $this->passwordRules()];
+            $this->validate($request, $rules);
+            $user->update([
+                "name" => $request->name,
+                "email" => $request->email,
+                "password" => Hash::make($request->password)
+            ]);
+        }
+        else
+        {
+            $this->validate($request, $rules);
+            $user->update([
+                "name" => $request->name,
+                "email" => $request->email,
+            ]);
+        }
 
         // 3. On affiche la liste des users modifié : route("users.index")
         return redirect(route("users_index"));
