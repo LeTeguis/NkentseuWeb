@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Validator;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        // On retourne la vue "/resources/views/users/edit.blade.php"
+        // On retourne la vue "/resources/views/users/create.blade.php"
         return view("users.edit");
     }
 
@@ -107,14 +108,14 @@ class UserController extends Controller
         $this->validate($request, $rules);
 
         // 2. On met à jour les informations du User
-        $post->update([
+        $user->update([
             "name" => $request->name,
             "email" => $request->email,
             "password" => $request->password
         ]);
 
-        // 3. On affiche la liste des users modifié : route("users.show")
-        return redirect(route("users_show", $user));
+        // 3. On affiche la liste des users modifié : route("users.index")
+        return redirect(route("users_index"));
     }
 
     /**

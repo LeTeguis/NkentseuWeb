@@ -38,7 +38,7 @@ Route::group(['prefix'=> 'users', 'namespace'=>'\App\Http\Controllers'], functio
     Route::post('store', ['uses' => 'UserController@store'])->name('users_store');
     Route::get('show', ['uses' => 'UserController@show'])->name('users_show');
     Route::get('edit/{user}', ['uses' => 'UserController@edit'])->name('users_edit');
-    Route::post('update', ['uses' => 'UserController@update'])->name('users_update');
+    Route::post('update/{user}', ['uses' => 'UserController@update'])->name('users_update');
     //Route::get('delete', ['uses' => 'UserController@destroy'])->name('users_delete');
     Route::delete('delete/{user}', 'UserController@destroy')->name('users_delete');
 });
